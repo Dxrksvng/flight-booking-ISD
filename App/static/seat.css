@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  font-family: "Lato", sans-serif;
+  margin: 0;
+}
+
+
+.scroll {
+  width: auto;
+  height: 500px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.container_seat_go {
+  perspective: 1000px;
+  margin-bottom: 30px;
+}
+
+.container_seat_back {
+  perspective: 1000px;
+  margin-bottom: 30px;
+}
+
+.seat_out {
+  background-color: #4e4e4e;
+  height: 26px;
+  width: 32px;
+  margin: 3px;
+  font-size: 50px;
+  border: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.seat_ret {
+  background-color: #4e4e4e;
+  height: 26px;
+  width: 32px;
+  margin: 3px;
+  font-size: 50px;
+  border: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.seat_name {
+  text-align: center;
+  height: 26px;
+  width: 32px;
+  margin: 3px;
+  font-size: 25px;
+}
+.seat_number {
+  text-align: center;
+  height: 26px;
+  width: 32px;
+  margin: 3px;
+  font-size: 20px;
+}
+
+.seat_out.selected {
+  background-color: green;
+}
+.seat_ret.selected {
+  background-color: green;
+}
+
+.seat_out.sold {
+  background-color: #acaaaa;
+}
+.seat_ret.sold {
+  background-color: #acaaaa;
+}
+
+.seat_out:nth-of-type(3) {
+  margin-right: 18px;
+}
+.seat_ret:nth-of-type(3) {
+  margin-right: 18px;
+}
+
+.seat_name:nth-of-type(4) {
+  margin-right: 18px;
+}
+
+.seat_out:not(.sold):hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+.seat_ret:not(.sold):hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.showcase .seat_out:not(.sold):hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.showcase .seat_ret:not(.sold):hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.showcase {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #777;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.showcase li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+}
+.showcase li small {
+  margin-left: 2px;
+}
+
+.row {
+  display: flex;
+}
+
+p.text_go{
+    margin: 5px 0;
+}
+
+p.text_go span{
+    color: rgb(4, 77, 16);
+}
