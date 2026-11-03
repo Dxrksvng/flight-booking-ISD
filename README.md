@@ -1,3 +1,37 @@
+<div align="center">
+
+# Flight Booking System (ISD)
+
+**A web flight-booking platform for customers, counter staff and managers.**
+
+![Backend PHP](https://img.shields.io/badge/Backend-PHP-777BB4?style=for-the-badge&logo=php&logoColor=white) ![Frontend Bootstrap](https://img.shields.io/badge/Frontend-Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white) ![Email PHPMailer](https://img.shields.io/badge/Email-PHPMailer-lightgrey?style=for-the-badge) ![Course ISD](https://img.shields.io/badge/Course-ISD-0F766E?style=for-the-badge)
+
+</div>
+
+## Tech stack
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=php,html,css,js,bootstrap,mysql,sqlite&perline=10" alt="Tech stack" />
+</p>
+
+## Roles and flow
+
+```mermaid
+flowchart TB
+    A(["Visitor"]) --> L["Register / Login"]
+    L --> R{"Role"}
+    R --> C["Customer\nsearch flights (one-way / round trip),\ncompare, passenger details,\nadd-ons, seats and baggage"]
+    R --> S["Counter staff"]
+    R --> M["Manager"]
+    C --> B["Booking"]
+    B --> E["Email confirmation\nPHPMailer"]
+    B --> D[("Database")]
+    S --> D
+    M --> D
+```
+
+---
+
 โครงงานระบบการจองตั๋วเที่ยวบิน (Flight Booking System)
 
 📝 เกี่ยวกับโครงงาน (About the Project)
