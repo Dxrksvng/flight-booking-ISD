@@ -7,16 +7,6 @@ https://getcomposer.org/download/
 -composer require phpmailer/phpmailer
 -install ที่ directory นั้นๆที่ project อยู่
 
-# บัญชีผู้ใช้สำหรับเข้าถึงการใช้งาน
-admin :
-	email : 65070009@kmitl.ac.th
-	password : 123456789
-counter service :
-	email : kamonwit567@gmail.com
-	password : 123456789
-customer :
-	email : 65070107@kmitl.ac.th
-	password : 123456789
 **หากต้องการสมัครสมาชิกให้ใช้อีเมลที่มีที่อยู่จริง**
 
 # flight ที่สามารถค้นหาได้
