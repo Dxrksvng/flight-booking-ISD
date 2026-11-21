@@ -74,7 +74,7 @@ flight-booking-ISD/
 │   ├── picture/                  Images
 │   ├── database/                 airline_db.db (SQLite), airline_db.sqbpro (DB Browser project)
 │   ├── composer.json, composer.lock, vendor/   PHPMailer ^6.8 (vendor committed)
-│   └── README.txt                Libraries, test accounts, sample searchable flights
+│   └── README.txt                Libraries and sample searchable flights
 ├── Project Proposal.pdf          Design document and diagrams
 ├── Web Technical Report.pdf      Technical report
 ├── App.zip, main.zip             Archive copies of the project
@@ -279,7 +279,7 @@ Prerequisites: PHP with the SQLite3 extension enabled (the code uses the `SQLite
 1. Clone: `git clone https://github.com/Dxrksvng/flight-booking-ISD.git`
 2. Put the `App` folder where your web server serves PHP (for example under XAMPP's `htdocs`). `dbcon.php` opens the database with the relative path `database/airline_db.db`, so the web server's working directory for these pages must be `App/` and the file must be writable by the server user.
 3. `vendor/` is committed. To reinstall dependencies (`composer.json` requires `phpmailer/phpmailer ^6.8`), run `composer install` inside `App/`.
-4. Configure e-mail: `register_code.php` currently contains a hard-coded Gmail SMTP username and password. Replace them with your own credentials, preferably read from environment variables, before you test registration. Do not commit credentials.
+4. Configure e-mail: Set `SMTP_USERNAME` and `SMTP_PASSWORD` in the environment before testing registration. Do not commit credentials.
 5. Open `http://localhost/<folder>/App/` (the path depends on where you placed the folder).
 
 PHP's built-in server (`php -S`) should also work from inside `App/` (ASSUMPTION: standard PHP behaviour; it is not documented or tested in this repository).
@@ -287,7 +287,7 @@ PHP's built-in server (`php -S`) should also work from inside `App/` (ASSUMPTION
 ## Test data
 
 - The sample flights in the database are dated in 2023 (for example Bangkok BKK to Hua Hin HHQ on 2023-10-05, HHQ to BKK on 2023-10-06, BKK to Phuket HKT on 2023-10-07, DMK to HKT on 2023-10-18, BKK to Chiang Mai CNX on 2023-10-26). The search uses `depart_date >= date`, so search with a date on or before those days. The full list of origin/destination/date triples is in `App/README.txt`.
-- `App/README.txt` lists three test accounts (admin, counter, customer) with a shared password. They are committed in plain text and the e-mails look like real addresses, so I do not repeat them here. Create your own accounts instead. To test registration, use a real mailbox you control, because a verification link is sent.
+- Test account credentials have been removed from `App/README.txt`. Create your own accounts for local testing.
 
 ## Testing
 
@@ -301,8 +301,8 @@ Findings from reading the code. This is an academic prototype; treat the list as
 |---|---|---|---|
 | 1 | **SQL injection**: request values are concatenated into SQL strings | `login_code.php`, `register_code.php`, `verify-email.php`, `search_code.php`, `seats.php`, `ticket.php`, `manager.php` | Use prepared statements (`SQLite3::prepare` + `bindValue`) everywhere |
 | 2 | **Plain-text passwords**: stored and compared directly | `register_code.php`, `login_code.php`, `users.password` | `password_hash()` / `password_verify()`; force a reset for existing users |
-| 3 | **Hard-coded SMTP credentials** for a Gmail account in source (and therefore in git history) | `register_code.php` | Revoke/rotate the password, load from environment, use an app password or a transactional-mail service |
-| 4 | **Committed test accounts and personal data**: plain-text credentials in `App/README.txt`; `airline_db.db` contains user and passenger records | `App/README.txt`, `App/database/` | Remove from the repository and history, use synthetic data (Faker) and a fresh seed script |
+| 3 | **Previously exposed SMTP credentials** remain in Git history | `register_code.php` | Revoke/rotate the password, load from environment, use an app password or a transactional-mail service |
+| 4 | **Database records**: `airline_db.db` may contain user and passenger records; the test credentials in `App/README.txt` have been removed | `App/README.txt`, `App/database/` | Remove from the repository and history, use synthetic data (Faker) and a fresh seed script |
 | 5 | **No role check on staff pages**: `manager.php` and `flight_list.php` only test that a session is authenticated, so a logged-in customer who opens the URL can edit flights | `manager.php`, `flight_list.php` | Check `$_SESSION['role']` server-side on every privileged page |
 | 6 | **Trusting client-supplied prices and totals**: flight price travels in query strings, and the payment total and method are passed in the URL to `ticket.php` | `passenger_form.php`, `payment.php`, `ticket.php` | Recompute price server-side from the database; use POST with CSRF tokens; never accept the amount from the client |
 | 7 | **Reflected/stored XSS risk**: values from GET/POST/session are echoed into HTML and inline JS without escaping | `seats.php`, `payment.php`, `service.php`, others | `htmlspecialchars()` for HTML, `json_encode()` for JS contexts |
